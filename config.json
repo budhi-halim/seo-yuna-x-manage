@@ -1,0 +1,12 @@
+{
+  "max_replies_per_run": 10,
+  "reply_interval_seconds": 15,
+  "max_comment_length": 100,
+  "emoji_min": 1,
+  "emoji_max": 3,
+  "page_size": 100,
+  "max_mention_pages": 5,
+  "max_manual_reply_pages": 10,
+  "request_budget": 60,
+  "lookback_hours": 48
+}

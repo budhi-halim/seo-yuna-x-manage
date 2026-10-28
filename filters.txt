@@ -1,0 +1,518 @@
+# ==========================================
+# AUTO-REPLY VIBE CHECK FILTERS
+# ==========================================
+#
+# Supports:
+# - comments (#)
+# - comma separators
+# - newline separators
+#
+# Goal:
+# Skip comments that are likely:
+# - asking a question
+# - requesting information
+# - negative / hostile
+# - spam / promotion
+#
+# NOTE:
+# "what" and "how" are intentionally omitted because:
+# "What a beautiful photo!"
+# "How gorgeous!"
+# are common praise expressions.
+#
+# ==========================================
+
+# --------------------------------------------------
+# ENGLISH
+# --------------------------------------------------
+
+why
+where
+where's
+where is
+which
+whose
+who's
+who is
+when
+when's
+when is
+can you
+can u
+could you
+could u
+would you
+would u
+will you
+may i
+may we
+should i
+should we
+is it
+is this
+is that
+are you
+do you
+did you
+does it
+have you
+has anyone
+please
+pls
+pls?
+plz
+plz?
+kindly
+
+# --------------------------------------------------
+# INDONESIAN
+# --------------------------------------------------
+
+kenapa
+knp
+mengapa
+gimana
+bagaimana
+gmn
+bgmn
+dimana
+di mana
+dmn
+kemana
+ke mana
+kmn
+darimana
+dari mana
+drmn
+kapan
+berapa
+berapa ya
+siapa
+siapa ya
+boleh
+bisa
+bisakah
+tolong
+dong
+ya?
+gak?
+nggak?
+kah
+
+# --------------------------------------------------
+# SPANISH
+# --------------------------------------------------
+
+por qué
+porque?
+dónde
+donde
+cuándo
+cuando
+cuánto
+cuanto
+cuál
+cual
+quién
+quien
+puedes
+podrías
+podrias
+me ayudas
+por favor
+
+# --------------------------------------------------
+# FRENCH
+# --------------------------------------------------
+
+pourquoi
+où
+ou
+quand
+combien
+quel
+quelle
+quels
+quelles
+qui
+est-ce que
+peux-tu
+pouvez-vous
+s'il vous plaît
+svp
+
+# --------------------------------------------------
+# GERMAN
+# --------------------------------------------------
+
+warum
+wo
+woher
+wohin
+wann
+welche
+welcher
+welches
+wer
+wie bitte
+kannst du
+könntest du
+bitte
+
+# --------------------------------------------------
+# PORTUGUESE
+# --------------------------------------------------
+
+por que
+porque?
+onde
+quando
+quanto
+qual
+quem
+você pode
+vc pode
+por favor
+
+# --------------------------------------------------
+# ITALIAN
+# --------------------------------------------------
+
+perché
+dove
+quando
+quanto
+quale
+chi
+puoi
+potresti
+per favore
+
+# --------------------------------------------------
+# DUTCH
+# --------------------------------------------------
+
+waarom
+waar
+wanneer
+welke
+wie
+kun je
+kan je
+alsjeblieft
+
+# --------------------------------------------------
+# RUSSIAN
+# --------------------------------------------------
+
+почему
+где
+когда
+сколько
+какой
+какая
+какие
+кто
+можешь
+пожалуйста
+
+# --------------------------------------------------
+# UKRAINIAN
+# --------------------------------------------------
+
+чому
+де
+коли
+скільки
+хто
+можеш
+будь ласка
+
+# --------------------------------------------------
+# POLISH
+# --------------------------------------------------
+
+dlaczego
+gdzie
+kiedy
+ile
+który
+kto
+czy możesz
+proszę
+
+# --------------------------------------------------
+# CZECH / SLOVAK
+# --------------------------------------------------
+
+proč
+kde
+kdy
+kolik
+kdo
+prosím
+
+# --------------------------------------------------
+# TURKISH
+# --------------------------------------------------
+
+neden
+niye
+nerede
+ne zaman
+kaç
+kim
+lütfen
+
+# --------------------------------------------------
+# ARABIC
+# --------------------------------------------------
+
+لماذا
+اين
+أين
+متى
+كم
+من
+من فضلك
+
+# --------------------------------------------------
+# HINDI
+# --------------------------------------------------
+
+क्यों
+कहा
+कहाँ
+कब
+कितना
+कौन
+क्या आप
+प्लीज
+
+# --------------------------------------------------
+# BENGALI
+# --------------------------------------------------
+
+কেন
+কোথায়
+কখন
+কত
+কে
+দয়া করে
+
+# --------------------------------------------------
+# THAI
+# --------------------------------------------------
+
+ทำไม
+ที่ไหน
+เมื่อไหร่
+เท่าไหร่
+ใคร
+ช่วย
+กรุณา
+
+# --------------------------------------------------
+# VIETNAMESE
+# --------------------------------------------------
+
+tại sao
+ở đâu
+khi nào
+bao nhiêu
+ai
+làm ơn
+
+# --------------------------------------------------
+# CHINESE (Simplified)
+# --------------------------------------------------
+
+为什么
+哪里
+在哪
+什么时候
+多少
+哪个
+谁
+可以吗
+请问
+麻烦
+
+# --------------------------------------------------
+# CHINESE (Traditional)
+# --------------------------------------------------
+
+為什麼
+哪裡
+在哪
+什麼時候
+多少
+哪個
+誰
+可以嗎
+請問
+麻煩
+
+# --------------------------------------------------
+# CANTONESE
+# --------------------------------------------------
+
+點解
+邊度
+幾時
+幾多
+邊個
+可唔可以
+
+# --------------------------------------------------
+# JAPANESE
+# --------------------------------------------------
+
+なぜ
+なんで
+どこ
+どちら
+いつ
+いくら
+誰
+できますか
+お願い
+ください
+
+# --------------------------------------------------
+# KOREAN
+# --------------------------------------------------
+
+왜
+어디
+언제
+얼마
+누구
+가능
+가능해
+가능한가
+부탁
+해주세요
+
+# --------------------------------------------------
+# NEGATIVE WORDS
+# --------------------------------------------------
+
+fake
+scam
+scammer
+fraud
+trash
+garbage
+terrible
+awful
+worst
+cringe
+cringey
+hate
+hater
+stupid
+idiot
+dumb
+pathetic
+ugly
+disgusting
+gross
+ew
+eww
+lame
+loser
+sucks
+wtf
+bullshit
+bs
+
+bodoh
+jelek
+buruk
+parah
+payah
+sampah
+penipu
+bohong
+
+falso
+estafa
+basura
+
+arnaque
+nul
+
+betrug
+falsch
+
+垃圾
+骗子
+假
+假的
+
+偽
+騙子
+
+偽物
+
+가짜
+사기
+
+подделка
+мошенник
+
+# --------------------------------------------------
+# SPAM / PROMOTION
+# --------------------------------------------------
+
+dm me
+pm me
+message me
+text me
+check dm
+check your dm
+check bio
+link in bio
+bio link
+promo
+promotion
+promote
+collab
+collaboration
+follow me
+follow back
+f4f
+l4l
+s4s
+buy now
+visit profile
+click link
+telegram
+whatsapp
+crypto
+bitcoin
+forex
+airdrop
+investment
+
+# --------------------------------------------------
+# NEGATIVE / ANGRY EMOJIS
+# --------------------------------------------------
+
+😡
+🤬
+👿
+💩
+🖕
+🤮
+😤
+😒
+🙄
+😑
+😠
+💀
+☠️
+👎
+❌
+🚫

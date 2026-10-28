@@ -1,0 +1,7 @@
+# ==========================================
+# STATIC EMOJI REPLY POOL
+# ==========================================
+# The script selects one to three comma-separated emoji tokens
+# for each eligible interaction. The range is set in config.json.
+
+♥️, 💕, ❤️, 💘, 💝, 💖, 💗, 💓, 💞, 🩷, 🥰

@@ -1,0 +1,96 @@
+name: Resolve Uncertain X Reply
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_id:
+        description: 'Numeric ID of the incoming reply whose outcome is uncertain'
+        type: string
+        required: true
+      reply_id:
+        description: 'If the acknowledgement exists: its numeric X Post ID. Otherwise leave empty.'
+        type: string
+        required: false
+        default: ''
+      confirm_retry:
+        description: 'I checked X and confirmed that no acknowledgement was published; mark this interaction for retry.'
+        type: boolean
+        required: true
+        default: false
+
+permissions: {}
+
+concurrency:
+  group: x-manager-state
+  cancel-in-progress: false
+
+jobs:
+  resolve:
+    # Recovery changes saved state, never publishes a new X reply.
+    # It stays available when the live-automation switch is off.
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    env:
+      PYTHONUNBUFFERED: '1'
+      STATE_BACKEND: github
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      X_API_KEY: ${{ secrets.X_API_KEY }}
+      X_API_KEY_SECRET: ${{ secrets.X_API_KEY_SECRET }}
+      X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+      X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+      X_EXPECTED_USERNAME: ${{ vars.X_EXPECTED_USERNAME }}
+      X_AUTOMATION_ENABLED: ${{ vars.X_AUTOMATION_ENABLED || 'false' }}
+      ENABLE_EMAIL_ALERTS: 'false'
+      SOURCE_POST_ID: ${{ inputs.source_id }}
+      REPLY_POST_ID: ${{ inputs.reply_id }}
+      CONFIRM_RETRY: ${{ inputs.confirm_retry }}
+    steps:
+      - name: Validate the requested resolution
+        shell: bash
+        run: |
+          set -euo pipefail
+          for required in X_API_KEY X_API_KEY_SECRET X_ACCESS_TOKEN X_ACCESS_TOKEN_SECRET X_EXPECTED_USERNAME; do
+            if [[ -z "${!required}" ]]; then
+              echo "::error::Missing configuration: $required. See docs/SETUP.md."
+              exit 1
+            fi
+          done
+          if [[ ! "$SOURCE_POST_ID" =~ ^[0-9]{1,20}$ ]]; then
+            echo '::error::source_id must be a numeric X Post ID.'
+            exit 1
+          fi
+          if [[ -n "$REPLY_POST_ID" ]]; then
+            if [[ ! "$REPLY_POST_ID" =~ ^[0-9]{1,20}$ || "$CONFIRM_RETRY" == 'true' ]]; then
+              echo '::error::Provide a numeric reply_id OR confirm_retry=true, never both.'
+              exit 1
+            fi
+          elif [[ "$CONFIRM_RETRY" != 'true' ]]; then
+            echo '::error::Provide reply_id, or confirm that you checked X and no acknowledgement appeared.'
+            exit 1
+          fi
+
+      - name: Check out the selected source commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.14'
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Reconcile the saved outcome
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -n "$REPLY_POST_ID" ]]; then
+            python x_auto_engage.py resolve --source-post-id "$SOURCE_POST_ID" --reply-post-id "$REPLY_POST_ID"
+          else
+            python x_auto_engage.py resolve --source-post-id "$SOURCE_POST_ID" --retry
+          fi
