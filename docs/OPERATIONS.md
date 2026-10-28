@@ -53,7 +53,7 @@ If an X request may have succeeded but the program could not confirm it, future 
 
 Open **Actions → Resolve Uncertain X Reply → Run workflow**, branch **master**. The form uses numeric public X Post IDs: the number following `/status/` in a post URL. Do not paste a complete URL, handle, or comment text.
 
-The status summary identifies a pending item by a 16-character hash prefix and timestamp, rather than exposing its source ID. Find the corresponding incoming post on X. If you need to check whether a candidate source ID matches that prefix, this optional **PowerShell** command computes it locally without X or GitHub requests:
+The status summary identifies a pending item by a 16-character hash prefix and timestamp. The live run's log also shows `Preparing acknowledgement for source Post ID ...` with that same prefix; use the numeric source ID from the failed run in the recovery form. That ID is public post metadata, and the log follows the repository's visibility. If the old run log is unavailable and you need to check whether a candidate source ID matches the prefix, this optional **PowerShell** command computes it locally without X or GitHub requests:
 
 ```powershell
 Set-Location -LiteralPath 'C:\Users\halim\seo-yuna-x-manage'

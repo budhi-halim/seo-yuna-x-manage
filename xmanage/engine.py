@@ -178,6 +178,7 @@ def run_manager(client, store, settings, policy, reply_tokens, *, expected_usern
             continue
         text = "".join(rng.choices(reply_tokens, k=rng.randint(settings["emoji_min"], settings["emoji_max"])))
         record(state, key, "posting", timestamp(now_fn()))
+        logger.info("Preparing acknowledgement for source Post ID %s (record %s).", post_id, key[:16])
         # This write must complete remotely before the POST can happen.
         store.save(state)
         try:
